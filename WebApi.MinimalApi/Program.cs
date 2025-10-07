@@ -7,6 +7,7 @@ using WebApi.MinimalApi.Samples;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseUrls("http://localhost:5000");
+
 builder.Services.AddControllers()
     .ConfigureApiBehaviorOptions(options => {
         options.SuppressModelStateInvalidFilter = true;
@@ -38,8 +39,10 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.CreateMap<UpdateDto,UserEntity>();
 
 }, new System.Reflection.Assembly[0]);
+
+builder.Services.AddSwaggerGeneration();
 var app = builder.Build();
 
+app.UseSwaggerWithUI();
 app.MapControllers();
-
 app.Run();
